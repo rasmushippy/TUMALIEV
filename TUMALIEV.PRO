@@ -3,9 +3,11 @@ domains
 	fio=symbol
 	sex=char
 	gpa=real
+	list=integer*
 predicates
 	student(num,fio,byear,sex)
 	result(num,gpa,retake)
+	length(list,integer)
 	task_1(num,fio,gpa,retake)
 	task_2(k)
 clauses
@@ -33,8 +35,10 @@ clauses
 	result(9,4.4,1).
 	result(10,3.8,0).
 	result(11,4.2,1).
+	length([],0).
+	length([_|TAIL],N):-length(TAIL,N1),N=N1+1.
 	task_1(NUM,FIO,GPA,RETAKE):-student(NUM,FIO,_,_),result(NUM,GPA,RETAKE),GPA>=3.5,RETAKE>0.
-	task_2(K):-findall(NUM,result(NUM,_,0),L), lenght(L,K),write(K).
+	task_2(K):-findall(NUM,result(NUM,_,0),L),length(L,K),write(K).
 %goal
 	%task_1(NUM,FIO,GPA,RETAKE),write(FIO," - sredniy bal - ",GPA," - koli4estvo peresda4 - ",RETAKE),nl.
 	
